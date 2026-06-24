@@ -1,0 +1,13 @@
+{
+  "name": "clawtrade-portal",
+  "version": "1.0.0",
+  "description": "ClawTrade Portal - Bulletproof tunnel failover with synthwave aesthetic",
+  "scripts": {
+    "start": "node server.js",
+    "health-check": "node health-check.js"
+  },
+  "dependencies": {
+    "localtunnel": "^2.0.2",
+    "node-fetch": "^3.3.2"
+  }
+}
