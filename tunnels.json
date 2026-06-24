@@ -1,6 +1,14 @@
 {
-  "updated": "2026-06-24T08:01:49-04:00",
+  "updated": "2026-06-24T08:02:04-04:00",
   "tunnels": [
+    {
+      "name": "cf",
+      "url": "https://hopkins-named-cardiff-suspected.trycloudflare.com",
+      "type": "cloudflare",
+      "priority": 3,
+      "status": "online"
+    }
+,
     {
       "name": "lt_clawtrade84",
       "url": "https://proud-rattlesnake-72.loca.lt",
@@ -22,7 +30,7 @@
       "url": "https://attribute-undying-linoleum.ngrok-free.dev",
       "type": "ngrok",
       "priority": 4,
-      "status": "offline"
+      "status": "online"
     }
 
   ],
