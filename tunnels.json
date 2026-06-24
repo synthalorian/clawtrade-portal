@@ -1,9 +1,9 @@
 {
-  "updated": "2026-06-24T08:04:54-04:00",
+  "updated": "2026-06-24T08:05:38-04:00",
   "tunnels": [
     {
       "name": "cf",
-      "url": "https://chen-brochures-bowl-wed.trycloudflare.com",
+      "url": "https://describes-ping-languages-gardens.trycloudflare.com",
       "type": "cloudflare",
       "priority": 3,
       "status": "online"
@@ -11,7 +11,7 @@
 ,
     {
       "name": "lt_clawtrade84",
-      "url": "https://nasty-panda-55.loca.lt",
+      "url": "https://chilly-earwig-51.loca.lt",
       "type": "localtunnel",
       "priority": 1,
       "status": "online"
@@ -19,7 +19,7 @@
 ,
     {
       "name": "lt_clawtrade-backup",
-      "url": "https://clawtrade-backup.loca.lt",
+      "url": "https://smart-fish-30.loca.lt",
       "type": "localtunnel",
       "priority": 2,
       "status": "online"
