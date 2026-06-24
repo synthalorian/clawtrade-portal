@@ -525,33 +525,27 @@
     </div>
 
     <script>
-        // Tunnel configuration - these are checked in order
-        const TUNNELS = [
-            {
-                name: 'LocalTunnel Primary',
-                url: 'https://clawtrade84.loca.lt',
-                type: 'localtunnel',
-                priority: 1
-            },
-            {
-                name: 'LocalTunnel Backup',
-                url: 'https://clawtrade-backup.loca.lt',
-                type: 'localtunnel',
-                priority: 2
-            },
-            {
-                name: 'Cloudflare Quick',
-                url: '', // Dynamic - populated when spawned
-                type: 'cloudflare',
-                priority: 3
-            },
-            {
-                name: 'ngrok Fallback',
-                url: '', // Dynamic - populated when spawned
-                type: 'ngrok',
-                priority: 4
+        // Fetch live tunnel configuration from JSON
+        async function fetchTunnelConfig() {
+            try {
+                // Try to fetch from same origin (GitHub Pages) with cache-busting
+                const response = await fetch('tunnels.json?t=' + Date.now(), {
+                    cache: 'no-store'
+                });
+                if (!response.ok) throw new Error('Failed to fetch');
+                const config = await response.json();
+                return config.tunnels || [];
+            } catch (error) {
+                console.warn('Could not fetch live config, using defaults:', error);
+                // Fallback to hardcoded defaults
+                return [
+                    { name: 'LocalTunnel Primary', url: 'https://clawtrade84.loca.lt', type: 'localtunnel', priority: 1 },
+                    { name: 'LocalTunnel Backup', url: 'https://clawtrade-backup.loca.lt', type: 'localtunnel', priority: 2 },
+                    { name: 'Cloudflare Quick', url: '', type: 'cloudflare', priority: 3 },
+                    { name: 'ngrok Fallback', url: '', type: 'ngrok', priority: 4 }
+                ];
             }
-        ];
+        }
 
         // Create floating particles
         function createParticles() {
@@ -634,16 +628,21 @@
             const currentUrl = document.getElementById('currentUrl');
             const mainIndicator = document.getElementById('mainIndicator');
             
+            // Fetch live config first
+            const tunnels = await fetchTunnelConfig();
+            
             // Mark all as checking
-            const checking = TUNNELS.map(t => ({ ...t, status: 'checking' }));
+            const checking = tunnels.map(t => ({ ...t, status: 'checking' }));
             renderTunnels(checking);
             
             // Check all tunnels in parallel
-            const results = await Promise.all(TUNNELS.map(checkTunnel));
+            const results = await Promise.all(tunnels.map(checkTunnel));
             renderTunnels(results);
             
-            // Find first online tunnel
-            const best = results.find(t => t.status === 'online');
+            // Find first online tunnel (sorted by priority)
+            const best = results
+                .filter(t => t.status === 'online')
+                .sort((a, b) => a.priority - b.priority)[0];
             
             if (best) {
                 entryBtn.disabled = false;

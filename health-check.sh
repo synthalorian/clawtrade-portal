@@ -73,7 +73,7 @@ main() {
     "$TUNNEL_MANAGER" restart
     
     # Wait and verify
-    sleep 10
+    sleep 15
     if check_tunnels; then
         log "SUCCESS: Tunnels restarted successfully"
     else

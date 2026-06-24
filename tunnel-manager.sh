@@ -246,8 +246,100 @@ stop_all() {
     success "All tunnels stopped"
 }
 
-# Show status of all tunnels
-show_status() {
+# Update tunnel URLs JSON and push to git
+update_tunnel_json() {
+    local json_file="$SCRIPT_DIR/tunnels.json"
+    local timestamp=$(date -Iseconds)
+    
+    # Build JSON from current tunnel status
+    cat > "$json_file" << EOF
+{
+  "updated": "$timestamp",
+  "tunnels": [
+EOF
+
+    local first=true
+    for url_file in "$PID_DIR"/*.url; do
+        [ -f "$url_file" ] || continue
+        local name=$(basename "$url_file" .url)
+        local url=$(cat "$url_file")
+        local pid_file="${url_file%.url}.pid"
+        local type="unknown"
+        local priority=99
+        local status="offline"
+        
+        # Determine type and priority from name
+        case "$name" in
+            lt_clawtrade84)
+                type="localtunnel"
+                priority=1
+                ;;
+            lt_clawtrade-backup)
+                type="localtunnel"
+                priority=2
+                ;;
+            cf)
+                type="cloudflare"
+                priority=3
+                ;;
+            ngrok)
+                type="ngrok"
+                priority=4
+                ;;
+        esac
+        
+        # Check if process is alive
+        if [ -f "$pid_file" ]; then
+            local pid=$(cat "$pid_file")
+            if kill -0 "$pid" 2>/dev/null; then
+                status="online"
+            fi
+        fi
+        
+        # Add comma if not first
+        if [ "$first" = true ]; then
+            first=false
+        else
+            echo "," >> "$json_file"
+        fi
+        
+        cat >> "$json_file" << EOF
+    {
+      "name": "$name",
+      "url": "$url",
+      "type": "$type",
+      "priority": $priority,
+      "status": "$status"
+    }
+EOF
+    done
+
+    cat >> "$json_file" << EOF
+
+  ],
+  "dashboard_url": "http://localhost:8746",
+  "version": "1.0.0"
+}
+EOF
+
+    # Push to git if configured
+    if [ -d "$SCRIPT_DIR/.git" ]; then
+        cd "$SCRIPT_DIR" || return
+        git add tunnels.json >/dev/null 2>&1
+        git commit -m "Auto-update tunnel URLs: $timestamp" >/dev/null 2>&1 || true
+        
+        # Push to both main and gh-pages
+        git push origin main >/dev/null 2>&1 || true
+        
+        # Update gh-pages branch
+        git checkout gh-pages >/dev/null 2>&1 || true
+        git merge main --no-edit >/dev/null 2>&1 || true
+        git push origin gh-pages >/dev/null 2>&1 || true
+        git checkout main >/dev/null 2>&1 || true
+        
+        log "Updated tunnel URLs and pushed to GitHub Pages"
+    fi
+}
     log "Tunnel Status:"
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     
@@ -307,6 +399,7 @@ start_all() {
     done < "$CONFIG_FILE"
     
     success "All tunnels started!"
+    update_tunnel_json
     show_status
 }
 

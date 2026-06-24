@@ -1,0 +1,35 @@
+{
+  "updated": "2026-06-24T07:54:47-04:00",
+  "tunnels": [
+    {
+      "name": "LocalTunnel Primary",
+      "url": "https://polite-puma-77.loca.lt",
+      "type": "localtunnel",
+      "priority": 1,
+      "status": "online"
+    },
+    {
+      "name": "LocalTunnel Backup",
+      "url": "https://curly-turtle-16.loca.lt",
+      "type": "localtunnel",
+      "priority": 2,
+      "status": "online"
+    },
+    {
+      "name": "Cloudflare Quick",
+      "url": "https://institute-assigned-fired-carries.trycloudflare.com",
+      "type": "cloudflare",
+      "priority": 3,
+      "status": "online"
+    },
+    {
+      "name": "ngrok Fallback",
+      "url": "https://attribute-undying-linoleum.ngrok-free.dev",
+      "type": "ngrok",
+      "priority": 4,
+      "status": "online"
+    }
+  ],
+  "dashboard_url": "http://localhost:8746",
+  "version": "1.0.0"
+}
