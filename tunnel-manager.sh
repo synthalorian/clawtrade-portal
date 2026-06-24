@@ -340,6 +340,9 @@ EOF
         log "Updated tunnel URLs and pushed to GitHub Pages"
     fi
 }
+
+# Show status of all tunnels
+show_status() {
     log "Tunnel Status:"
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     
