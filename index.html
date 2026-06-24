@@ -536,14 +536,25 @@
                 const config = await response.json();
                 return config.tunnels || [];
             } catch (error) {
-                console.warn('Could not fetch live config, using defaults:', error);
-                // Fallback to hardcoded defaults
-                return [
-                    { name: 'LocalTunnel Primary', url: 'https://clawtrade84.loca.lt', type: 'localtunnel', priority: 1 },
-                    { name: 'LocalTunnel Backup', url: 'https://clawtrade-backup.loca.lt', type: 'localtunnel', priority: 2 },
-                    { name: 'Cloudflare Quick', url: '', type: 'cloudflare', priority: 3 },
-                    { name: 'ngrok Fallback', url: '', type: 'ngrok', priority: 4 }
-                ];
+                console.warn('Could not fetch from same origin, trying raw GitHub:', error);
+                // Fallback to raw GitHub content
+                try {
+                    const response = await fetch('https://raw.githubusercontent.com/synthalorian/clawtrade-portal/gh-pages/tunnels.json?t=' + Date.now(), {
+                        cache: 'no-store'
+                    });
+                    if (!response.ok) throw new Error('Raw fetch failed');
+                    const config = await response.json();
+                    return config.tunnels || [];
+                } catch (error2) {
+                    console.warn('Raw GitHub also failed, using hardcoded defaults:', error2);
+                    // Fallback to hardcoded defaults
+                    return [
+                        { name: 'LocalTunnel Primary', url: 'https://clawtrade84.loca.lt', type: 'localtunnel', priority: 1 },
+                        { name: 'LocalTunnel Backup', url: 'https://clawtrade-backup.loca.lt', type: 'localtunnel', priority: 2 },
+                        { name: 'Cloudflare Quick', url: '', type: 'cloudflare', priority: 3 },
+                        { name: 'ngrok Fallback', url: '', type: 'ngrok', priority: 4 }
+                    ];
+                }
             }
         }
 
