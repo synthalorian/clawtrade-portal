@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-24T08:02:08-04:00",
+  "updated": "2026-06-24T08:02:49-04:00",
   "tunnels": [
     {
       "name": "cf",
@@ -11,7 +11,7 @@
 ,
     {
       "name": "lt_clawtrade84",
-      "url": "https://proud-rattlesnake-72.loca.lt",
+      "url": "https://hot-lionfish-41.loca.lt",
       "type": "localtunnel",
       "priority": 1,
       "status": "online"
@@ -19,7 +19,7 @@
 ,
     {
       "name": "lt_clawtrade-backup",
-      "url": "https://clawtrade-backup.loca.lt",
+      "url": "https://bad-snail-5.loca.lt",
       "type": "localtunnel",
       "priority": 2,
       "status": "online"
@@ -30,7 +30,7 @@
       "url": "https://attribute-undying-linoleum.ngrok-free.dev",
       "type": "ngrok",
       "priority": 4,
-      "status": "online"
+      "status": "offline"
     }
 
   ],
