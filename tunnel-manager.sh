@@ -202,13 +202,13 @@ start_ngrok() {
     local pid=$!
     echo $pid > "$pid_file"
     
-    # Wait for tunnel to establish
-    sleep 5
+    # Wait for tunnel to establish - ngrok needs more time
+    sleep 8
     
     if kill -0 "$pid" 2>/dev/null; then
         success "ngrok started (PID: $pid)"
         # Try to get URL from ngrok API
-        sleep 2
+        sleep 3
         local url=$(curl -s http://localhost:4040/api/tunnels 2>/dev/null | grep -o 'https://[^"]*ngrok-free\.dev' | head -1)
         if [ -n "$url" ]; then
             log "URL: $url"
