@@ -1,9 +1,9 @@
 {
-  "updated": "2026-06-24T08:03:35-04:00",
+  "updated": "2026-06-24T08:03:57-04:00",
   "tunnels": [
     {
       "name": "cf",
-      "url": "https://trackbacks-nec-lows-wines.trycloudflare.com",
+      "url": "https://ata-spread-tray-limitation.trycloudflare.com",
       "type": "cloudflare",
       "priority": 3,
       "status": "online"
@@ -11,7 +11,7 @@
 ,
     {
       "name": "lt_clawtrade84",
-      "url": "https://tidy-squid-72.loca.lt",
+      "url": "https://fresh-fireant-91.loca.lt",
       "type": "localtunnel",
       "priority": 1,
       "status": "online"
@@ -19,7 +19,7 @@
 ,
     {
       "name": "lt_clawtrade-backup",
-      "url": "https://clawtrade-backup.loca.lt",
+      "url": "https://smooth-zebra-34.loca.lt",
       "type": "localtunnel",
       "priority": 2,
       "status": "online"
