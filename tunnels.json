@@ -1,34 +1,30 @@
 {
-  "updated": "2026-06-24T07:54:47-04:00",
+  "updated": "2026-06-24T08:01:49-04:00",
   "tunnels": [
     {
-      "name": "LocalTunnel Primary",
-      "url": "https://polite-puma-77.loca.lt",
+      "name": "lt_clawtrade84",
+      "url": "https://proud-rattlesnake-72.loca.lt",
       "type": "localtunnel",
       "priority": 1,
       "status": "online"
-    },
+    }
+,
     {
-      "name": "LocalTunnel Backup",
-      "url": "https://curly-turtle-16.loca.lt",
+      "name": "lt_clawtrade-backup",
+      "url": "https://clawtrade-backup.loca.lt",
       "type": "localtunnel",
       "priority": 2,
       "status": "online"
-    },
+    }
+,
     {
-      "name": "Cloudflare Quick",
-      "url": "https://institute-assigned-fired-carries.trycloudflare.com",
-      "type": "cloudflare",
-      "priority": 3,
-      "status": "online"
-    },
-    {
-      "name": "ngrok Fallback",
+      "name": "ngrok",
       "url": "https://attribute-undying-linoleum.ngrok-free.dev",
       "type": "ngrok",
       "priority": 4,
-      "status": "online"
+      "status": "offline"
     }
+
   ],
   "dashboard_url": "http://localhost:8746",
   "version": "1.0.0"
